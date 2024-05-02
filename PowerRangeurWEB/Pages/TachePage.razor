@@ -1,0 +1,50 @@
+﻿@page "/Tache"
+@using PowerRangeurAPI.API.DTOs.Tache
+@using PowerRangeurAPI.Domain.Models
+
+<h3>Tache</h3>
+
+<div class="taches row gap-3">
+    <div class="TachesLibres col-md col-12 card d-flex flex-column gap-2">
+        @foreach(TacheGet t in TachesLibres)
+        {
+            <div class="bg-info">
+                @t.NomTache
+            </div>
+        }
+    </div>
+    <div class="TachesEncours col-md col-12 card">
+        @foreach (TacheGet t in TachesEnCours)
+        {
+            <div class="bg-danger">
+                @t.NomTache
+            </div>
+        }
+    </div>
+    <div class="TachesTerminees col-md col-12 card">
+        @foreach (TacheGet t in TachesTerminees)
+        {
+            <div class="bg-success">
+                @t.NomTache
+            </div>
+        }
+    </div>
+</div>
+
+
+@code {
+    public IEnumerable<TacheGet> TachesLibres { get; set; } = [];
+    public IEnumerable<TacheGet> TachesEnCours { get; set; } = [];
+    public IEnumerable<TacheGet> TachesTerminees { get; set; } = [];
+
+    [Inject]
+    public HttpClient HttpClient { get; set; }
+
+    protected override async Task OnInitializedAsync()
+    {
+        List<TacheGet> taches = await HttpClient.GetFromJsonAsync<List<TacheGet>>("/api/tache/all");
+        TachesLibres = taches.Where(t => t.Statut == Tache.Status.Libre);
+        TachesEnCours = taches.Where(t => t.Statut == Tache.Status.Encours);
+        TachesTerminees = taches.Where(t => t.Statut == Tache.Status.Terminee);
+    }
+}
