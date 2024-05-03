@@ -1,5 +1,44 @@
-﻿<h3>CreationTache</h3>
+﻿@page "/CreationTache"
 
-@code {
+<h3>Creation Tache</h3>
+<form @onsubmit="()=> CreerTache()">
 
-}
+    <div>
+        <label for="NomTache">Nom de la Tâche:</label>
+        <InputText @bind-Value="Tache.NomTache" type="text" required></InputText>
+    </div>
+    <div>
+        <label for="Statut">Statut:</label>
+        <InputSelect @bind-Value="Tache.Statut" name="Statut">
+            <option value=0>En cours</option>
+            <option value=1>Terminée</option>
+            <option value=2>En attente</option>
+        </InputSelect>
+    </div>
+    <div>
+        <label for="PrioriteTaches">Priorité:</label>
+        <InputNumber @bind-Value="Tache.PrioriteTaches" required></InputNumber>
+    </div>
+    <div>
+        <label for="Recurrence">Récurrence:</label>
+        <InputSelect @bind-Value="Tache.Recurrence">
+            <option value="Non">Non</option>
+            <option value="Quotidienne">Quotidienne</option>
+            <option value="Hebdomadaire">Hebdomadaire</option>
+            <option value="Mensuelle">Mensuelle</option>
+        </InputSelect>
+    </div>
+    <div>
+        <label for="Description">Description:</label>
+        <InputTextArea @bind-Value="Tache.Description"></InputTextArea>
+    </div>
+    <div>
+        <label for="DateEcheance">Date d'échéance:</label>
+        <InputDate @bind-Value="Tache.DateEcheance" required></InputDate>
+    </div>
+@*     <div>
+        <label for="PointBonusMalus">Point Bonus/Malus:</label>
+        <InputNumber @bind-Value="Tache.PointBonusMalus"></InputNumber>
+    </div> *@
+    <button type="submit">Soumettre</button>
+</form>
