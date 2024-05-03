@@ -15,12 +15,18 @@ namespace PowerRangeurWEB.Pages
 
         public TacheGet Tache { get; set; } = new TacheGet();
 
-        private async Task DetailTache()
+        private async Task InfoTache()
         {
-            using var httpResponse = await HttpClient.GetAsync("/api/tache");
-            if (!httpResponse.IsSuccessStatusCode)
-            { errorMessage = httpResponse.ReasonPhrase; return; }
-            UsersResponse response = await httpResponse.Content.ReadFromJsonAsync<UsersResponse>();
+
+            HttpResponseMessage response = await HttpClient.PostAsJsonAsync("/api/Tache/ById", Tache);
+            if (response.IsSuccessStatusCode)
+            {
+                Console.WriteLine("ok");
+            }
+            else
+            {
+                Console.WriteLine("Notok");
+            }
 
         }
     }
