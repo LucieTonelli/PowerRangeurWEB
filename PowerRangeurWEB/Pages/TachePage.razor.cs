@@ -39,7 +39,7 @@ namespace PowerRangeurWEB.Pages
                 Recurrence = tache.Recurrence,
                 Description = tache.Description,
                 DateEcheance = tache.DateEcheance,
-                PointBonusMalus = tache.PointBonusMalus
+                //PointBonusMalus = tache.PointBonusMalus
             };
 
             HttpResponseMessage response = await HttpClient.PostAsJsonAsync("/api/tache", tache);
