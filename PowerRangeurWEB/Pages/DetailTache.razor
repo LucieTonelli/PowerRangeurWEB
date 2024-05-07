@@ -1,61 +1,22 @@
-﻿@page "/DetailTache"
+﻿@page "/DetailTache/{id:int?}"
 
 <h3>DetailTache</h3>
-<!DOCTYPE html>
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Affichage de Tâche</title>
-</head>
-<body>
-    <h1>Détails de la Tâche</h1>
-    <div>
-        <p><strong>ID:</strong> <span id="idTache"></span></p>
-        <p><strong>Nom:</strong> <span id="nomTache"></span></p>
-        <p><strong>Statut:</strong> <span id="statut"></span></p>
-        <p><strong>Priorité:</strong> <span id="prioriteTaches"></span></p>
-        <p><strong>Récurrence:</strong> <span id="recurrence"></span></p>
-        <p><strong>Description:</strong> <span id="description"></span></p>
-        <p><strong>Date de Création:</strong> <span id="dateCreation"></span></p>
-        <p><strong>Date d'Échéance:</strong> <span id="dateEcheance"></span></p>
-        <p><strong>Utilisateurs assignés:</strong></p>
-        <ul id="utilisateurs">
-        </ul>
-    </div>
 
-    <script>
-        // Exemple de données d'une tâche
-        const tache = {
-            idTache: 1,
-            nomTache: "Tâche de test",
-            statut: "Libre",
-            prioriteTaches: 2,
-            recurrence: "Non",
-            description: "Description de la tâche de test",
-            dateCreation: "2024-05-03T10:00:00",
-            dateEcheance: "2024-05-10T10:00:00",
-            utilisateurs: [
-                { id: 1, nom: "Utilisateur 1" },
-                { id: 2, nom: "Utilisateur 2" }
-            ]
-        };
-
-        // Affichage des données de la tâche
-        document.getElementById("idTache").innerText = tache.idTache;
-        document.getElementById("nomTache").innerText = tache.nomTache;
-        document.getElementById("statut").innerText = tache.statut;
-        document.getElementById("prioriteTaches").innerText = tache.prioriteTaches;
-        document.getElementById("recurrence").innerText = tache.recurrence;
-        document.getElementById("description").innerText = tache.description;
-        document.getElementById("dateCreation").innerText = tache.dateCreation;
-        document.getElementById("dateEcheance").innerText = tache.dateEcheance;
-
-        const utilisateursListe = document.getElementById("utilisateurs");
-        tache.utilisateurs.forEach(utilisateur => {
-            const utilisateurItem = document.createElement("li");
-            utilisateurItem.innerText = `${utilisateur.nom} (ID: ${utilisateur.id})`;
-            utilisateursListe.appendChild(utilisateurItem);
-        });
-    </script>
-</body>
-</html>
+@if (IdTache != null)
+{
+    <ul>
+        <li>ID: @Tache.IdTache</li>
+        <li>Nom: @Tache.NomTache</li>
+        <li>Statut: @Tache.Statut</li>
+        <li>Priorité: @Tache.PrioriteTaches</li>
+        <li>Récurrence: @Tache.Recurrence</li>
+        <li>Description: @Tache.Description</li>
+        <li>Date de Création: @Tache.DateCreation</li>
+        <li>Date d'Échéance: @Tache.DateEcheance</li>
+        <li>Utilisateurs assignés: @Tache.Users</li>
+    </ul>
+}
+else
+{
+    <p>La tâche correspondante n'a pas été trouvée.</p>
+}

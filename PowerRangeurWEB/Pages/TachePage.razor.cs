@@ -18,6 +18,9 @@ namespace PowerRangeurWEB.Pages
         [Inject]
         public HttpClient HttpClient { get; set; }
 
+        [Inject]
+        public NavigationManager NavigationManager { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             List<TacheGet> taches = await HttpClient.GetFromJsonAsync<List<TacheGet>>("/api/tache/all");
@@ -52,11 +55,14 @@ namespace PowerRangeurWEB.Pages
                 await OnInitializedAsync();
             }
         }
-    
 
 
+        //méthode pour naviguer vers la page de détails de la tâche (avec injection de NavigationManager)
+        private void GetById (int idTache)
+        {
+            NavigationManager.NavigateTo($"/DetailTache/{idTache}");
+        }
 
 
-
-}
+    }
 }

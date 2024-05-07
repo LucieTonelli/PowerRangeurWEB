@@ -1,6 +1,10 @@
 ﻿@page "/Tache"
+@using Microsoft.EntityFrameworkCore.Metadata.Internal
 @using PowerRangeurAPI.API.DTOs.Tache
 @using PowerRangeurAPI.Domain.Models
+
+@inject NavigationManager Navigation
+
 
 <h3>Tache</h3>
 <button class="btn btn-info" type="button">
@@ -13,9 +17,11 @@
         {
             <div class="bg-info">
                 @t.NomTache
-                <button class="btn btn-info" type="button">
-                    <NavLink href="DetailTache">Détail</NavLink>
-                </button>
+@*                     <NavLink href="DetailTache">Détail</NavLink>
+                    <InputNumber @onclick="GetbyId"@bind-Value="t.IdTache"></InputNumber> *@
+                    @* <button class="btn btn-info" type="button" @onclick="() => GetById(t.IdTache)">Détail</button> *@
+                <button @onclick="@(() => Navigation.NavigateTo($"/DetailTache/{t.IdTache}"))"></button>
+
             </div>
         }
     </div>
