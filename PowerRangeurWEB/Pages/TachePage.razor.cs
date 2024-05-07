@@ -12,7 +12,8 @@ namespace PowerRangeurWEB.Pages
         public IEnumerable<TacheGet> TachesEnCours { get; set; } = [];
         public IEnumerable<TacheGet> TachesTerminees { get; set; } = [];
 
-
+        //[Parameter]
+        //public string IdTache { get; set; }
 
 
         [Inject]

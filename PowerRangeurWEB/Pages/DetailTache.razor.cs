@@ -1,6 +1,7 @@
 ﻿using DocuSign.eSign.Model;
 using Microsoft.AspNetCore.Components;
 using PowerRangeurAPI.API.DTOs.Tache;
+using PowerRangeurAPI.Domain.Models;
 using System.Net.Http;
 using System.Net.Http.Json;
 
@@ -13,17 +14,15 @@ namespace PowerRangeurWEB.Pages
         public HttpClient HttpClient { get; set; }
 
         [Parameter]
-        public string IdTache { get; set; }
+        public int IdTache { get; set; }
 
-        private int idTache;
         public TacheGet Tache { get; set; } = new TacheGet();
 
         protected override async Task OnParametersSetAsync()
         {
-            if (int.TryParse(IdTache, out int result))
+            if (IdTache != null)
             {
-                idTache = result;
-                Tache.IdTache = idTache;
+                 Tache.IdTache = IdTache;
                 await InfoTache();
             }
         }
@@ -32,8 +31,8 @@ namespace PowerRangeurWEB.Pages
 
         private async Task InfoTache()
         {
-           
-            HttpResponseMessage response = await HttpClient.PostAsJsonAsync("/api/Tache/ById/", Tache);
+
+            HttpResponseMessage response = await HttpClient.GetAsync($"/api/Tache/ById/{IdTache}");
             if (response.IsSuccessStatusCode)
             {
                 Tache = await response.Content.ReadFromJsonAsync<TacheGet>();
@@ -45,15 +44,7 @@ namespace PowerRangeurWEB.Pages
             }
         }
 
-        protected override void OnParametersSet()
-        {
-            if (int.TryParse(IdTache, out int result))
-            {
-                idTache = result;
-                InfoTache();
-            }
 
-        }
 
     }
 }
