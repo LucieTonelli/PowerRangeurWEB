@@ -1,6 +1,7 @@
 ﻿using DocuSign.eSign.Model;
 using Microsoft.AspNetCore.Components;
 using PowerRangeurAPI.API.DTOs.Tache;
+using PowerRangeurAPI.API.DTOs.User;
 using PowerRangeurAPI.Domain.Models;
 using System.Net.Http;
 using System.Net.Http.Json;
@@ -22,8 +23,9 @@ namespace PowerRangeurWEB.Pages
         {
             if (IdTache != null)
             {
-                 Tache.IdTache = IdTache;
+                Tache.IdTache = IdTache;
                 await InfoTache();
+                Tache.Users = new List<UserGet>();
             }
         }
 

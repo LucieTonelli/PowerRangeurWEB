@@ -1,0 +1,26 @@
+﻿@page "/AssignerRangeur/{IdTache:int}"
+@using PowerRangeurWEB.Pages
+
+<h3>Assigner Rangeur</h3>
+
+<table class="table">
+    <thead>
+        <tr>
+            <th>Id</th>
+            <th>Pseudo</th>
+            <th>Prénom</th>
+            <th>Nom</th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var user in Users)
+        {
+            <tr>
+                <td>@user.IdUser</td>
+                <td>@user.PseudoUser</td>
+                <td>@user.Prenom</td>
+                <td>@user.Nom</td>
+            </tr>
+        }
+    </tbody>
+</table>

@@ -17,11 +17,7 @@
         {
             <div class="bg-info">
                 @t.NomTache
-@*                     <NavLink href="DetailTache">Détail</NavLink>
-                    <InputNumber @onclick="GetbyId"@bind-Value="t.IdTache"></InputNumber> *@
-                    @* <button class="btn btn-info" type="button" @onclick="() => GetById(t.IdTache)">Détail</button> *@
-                <button @onclick="@(() => Navigation.NavigateTo($"/DetailTache/{t.IdTache}"))"></button>
-
+                <button @onclick="@(() => Navigation.NavigateTo($"/DetailTache/{t.IdTache}"))">Détail</button>
             </div>
         }
     </div>
