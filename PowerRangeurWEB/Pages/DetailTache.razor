@@ -22,7 +22,8 @@
             else
             {
                 <li>Aucun utilisateur n'est assigné</li>
-                <button @onclick="@(() => Navigation.NavigateTo($"/AssignerRangeur/{Tache.IdTache}"))">Trouver un Rangeur</button>
+                <button @onclick="() => Assign(t)">Trouver un Rangeur</button>
+                // <button @onclick="@(() => Navigation.NavigateTo($"/AssignerRangeur/{Tache.IdTache}"))">Trouver un Rangeur</button>
 
             }
         </ul>

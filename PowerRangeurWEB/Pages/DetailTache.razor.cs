@@ -1,8 +1,11 @@
-﻿using DocuSign.eSign.Model;
+﻿using Blazored.Modal.Services;
+using Blazored.Modal;
+using DocuSign.eSign.Model;
 using Microsoft.AspNetCore.Components;
 using PowerRangeurAPI.API.DTOs.Tache;
 using PowerRangeurAPI.API.DTOs.User;
 using PowerRangeurAPI.Domain.Models;
+using PowerRangeurWEB.Dialogs;
 using System.Net.Http;
 using System.Net.Http.Json;
 
@@ -13,6 +16,9 @@ namespace PowerRangeurWEB.Pages
 
         [Inject]
         public HttpClient HttpClient { get; set; }
+
+        [CascadingParameter]
+        public IModalService ModalService { get; set; }
 
         [Parameter]
         public int IdTache { get; set; }
@@ -46,7 +52,15 @@ namespace PowerRangeurWEB.Pages
             }
         }
 
-
+        public async void Assign(TacheGet t)
+        {
+            ModalParameters parameters = new()
+            {
+                { "Tache", t }
+            };
+            await ModalService.Show<AssignDialog>("Assigner des utilisateurs", parameters).Result;
+            await OnInitializedAsync();
+        }
 
     }
 }

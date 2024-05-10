@@ -1,0 +1,23 @@
+﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
+@using PowerRangeurAPI.API.DTOs.User
+@using System.Diagnostics
+<h3>Nom de la tache : @Tache.NomTache</h3>
+@if(Tache.Users != null)
+{
+    @foreach(UserGet u in Users)
+    {
+        <div>
+            @if(Tache.Users.Any(us => us.IdUser == u.IdUser))
+            {
+                <input checked type="checkbox" @onchange="() => Remove(u)"></input>
+            } 
+            else
+            {
+                <input type="checkbox" @onchange="() => Add(u)"></input>
+            }
+            @u.PseudoUser
+        </div>
+    }
+}
+<button @onclick="@(Sauver)">Sauver</button>
+

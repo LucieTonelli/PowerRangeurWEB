@@ -1,3 +1,4 @@
+using Blazored.Modal;
 using Microsoft.AspNetCore.Components.Web;
 using Microsoft.AspNetCore.Components.WebAssembly.Hosting;
 using PowerRangeurWEB;
@@ -13,5 +14,7 @@ builder.Services.AddScoped(sp =>
     {
         BaseAddress = new Uri("https://localhost:7112/")
     });
+
+builder.Services.AddBlazoredModal();
 
 await builder.Build().RunAsync();

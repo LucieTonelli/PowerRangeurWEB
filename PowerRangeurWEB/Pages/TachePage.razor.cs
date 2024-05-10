@@ -1,6 +1,9 @@
-﻿using Microsoft.AspNetCore.Components;
+﻿using Blazored.Modal;
+using Blazored.Modal.Services;
+using Microsoft.AspNetCore.Components;
 using PowerRangeurAPI.API.DTOs.Tache;
 using PowerRangeurAPI.Domain.Models;
+using PowerRangeurWEB.Dialogs;
 using System.Net.Http.Json;
 
 namespace PowerRangeurWEB.Pages
@@ -18,12 +21,16 @@ namespace PowerRangeurWEB.Pages
         [Inject]
         public NavigationManager NavigationManager { get; set; }
 
+        [CascadingParameter]
+        public IModalService ModalService { get; set; }
+
         protected override async Task OnInitializedAsync()
         {
             List<TacheGet> taches = await HttpClient.GetFromJsonAsync<List<TacheGet>>("/api/tache/all");
             TachesLibres = taches.Where(t => t.Statut == Tache.Status.Libre);
             TachesEnCours = taches.Where(t => t.Statut == Tache.Status.Encours);
             TachesTerminees = taches.Where(t => t.Statut == Tache.Status.Terminee);
+            StateHasChanged();
         }
 
 
@@ -58,6 +65,16 @@ namespace PowerRangeurWEB.Pages
         private void GetById (int idTache)
         {
             NavigationManager.NavigateTo($"/DetailTache/{idTache}");
+        }
+
+        public async void Assign(TacheGet t)
+        {
+            ModalParameters parameters = new()
+            {
+                { "Tache", t }
+            };
+            await ModalService.Show<AssignDialog>("Assigner des utilisateurs", parameters).Result;
+            await OnInitializedAsync();
         }
 
 
