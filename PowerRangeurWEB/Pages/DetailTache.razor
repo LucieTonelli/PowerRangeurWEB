@@ -1,10 +1,6 @@
 ﻿@page "/DetailTache/{IdTache:int}"
-@inject NavigationManager Navigation
 
 <h3>Detail Tache</h3>
-@{
-    if (IdTache != null)
-    {
         <ul>
             <li>ID: @Tache.IdTache</li>
             <li>Nom: @Tache.NomTache</li>
@@ -15,21 +11,19 @@
             <li>Date de Création: @Tache.DateCreation</li>
             <li>Date d'Échéance: @Tache.DateEcheance</li>
 
-            @if (Tache.Users != null && Tache.Users.Any())
+        @foreach (var user in Tache.Users)
+        {
+            @if (Tache.Users != null)
             {
-                <li>Utilisateurs assignés: @string.Join(", ", Tache.Users.Select(user => user.Nom))</li>
+            <li>Des Rangeurs y travaillent : 
+                @user.Nom</li>
+        
             }
             else
             {
                 <li>Aucun utilisateur n'est assigné</li>
-                <button @onclick="() => Assign(t)">Trouver un Rangeur</button>
-                // <button @onclick="@(() => Navigation.NavigateTo($"/AssignerRangeur/{Tache.IdTache}"))">Trouver un Rangeur</button>
 
             }
+        }
+            <button @onclick="() => Assign(Tache)">Trouver un Rangeur</button>
         </ul>
-    }
-    else
-    {
-        <p>La tâche correspondante n'a pas été trouvée.</p>
-    }
-}

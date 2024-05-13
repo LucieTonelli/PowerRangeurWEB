@@ -17,7 +17,7 @@ namespace PowerRangeurWEB.Pages
         [Inject]
         public HttpClient HttpClient { get; set; }
 
-        [CascadingParameter]
+                [CascadingParameter]
         public IModalService ModalService { get; set; }
 
         [Parameter]
@@ -31,7 +31,7 @@ namespace PowerRangeurWEB.Pages
             {
                 Tache.IdTache = IdTache;
                 await InfoTache();
-                Tache.Users = new List<UserGet>();
+                //Tache.Users = new List<UserGet>();
             }
         }
 
