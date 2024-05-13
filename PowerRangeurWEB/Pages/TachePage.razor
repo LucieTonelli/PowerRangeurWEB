@@ -19,6 +19,7 @@
             <div class="bg-info">
                 @t.NomTache
                 <button @onclick="@(() => Navigation.NavigateTo($"/DetailTache/{t.IdTache}"))">Détail</button>
+                <button @onclick="() => Assign(t)">Assigner</button>
             </div>
         }
     </div>

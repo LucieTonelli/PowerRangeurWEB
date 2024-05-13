@@ -17,7 +17,7 @@ namespace PowerRangeurWEB.Pages
         [Inject]
         public HttpClient HttpClient { get; set; }
 
-                [CascadingParameter]
+        [CascadingParameter]
         public IModalService ModalService { get; set; }
 
         [Parameter]
@@ -31,10 +31,13 @@ namespace PowerRangeurWEB.Pages
             {
                 Tache.IdTache = IdTache;
                 await InfoTache();
-                //Tache.Users = new List<UserGet>();
             }
         }
 
+        //protected override void OnParametersSet()
+        //{ 
+        
+        //}
 
 
         private async Task InfoTache()
@@ -52,6 +55,14 @@ namespace PowerRangeurWEB.Pages
             }
         }
 
+        protected override async Task OnInitializedAsync()
+        {
+            InfoTache();
+            StateHasChanged();
+        }
+
+
+
         public async void Assign(TacheGet t)
         {
             ModalParameters parameters = new()
@@ -60,7 +71,11 @@ namespace PowerRangeurWEB.Pages
             };
             await ModalService.Show<AssignDialog>("Assigner des utilisateurs", parameters).Result;
             await OnInitializedAsync();
+
         }
+
+
+
 
     }
 }

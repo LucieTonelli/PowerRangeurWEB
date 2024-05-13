@@ -1,7 +1,7 @@
 ﻿@page "/DetailTache/{IdTache:int}"
 
 <h3>Detail Tache</h3>
-        <ul>
+
             <li>ID: @Tache.IdTache</li>
             <li>Nom: @Tache.NomTache</li>
             <li>Statut: @Tache.Statut</li>
@@ -10,20 +10,22 @@
             <li>Description: @Tache.Description</li>
             <li>Date de Création: @Tache.DateCreation</li>
             <li>Date d'Échéance: @Tache.DateEcheance</li>
+    
+    @if (Tache.Users != null)
+    {
 
         @foreach (var user in Tache.Users)
         {
-            @if (Tache.Users != null)
-            {
-            <li>Des Rangeurs y travaillent : 
-                @user.Nom</li>
+            <li>Des Rangeurs y travaillent : </li>
+                <ul>@user.Nom</ul>
         
-            }
-            else
-            {
-                <li>Aucun utilisateur n'est assigné</li>
-
-            }
         }
-            <button @onclick="() => Assign(Tache)">Trouver un Rangeur</button>
-        </ul>
+    }
+    else
+    {
+        <li>Aucun utilisateur n'est assigné</li>
+
+    }
+    
+    <button @onclick="() => Assign(Tache)">Trouver un Rangeur</button>
+

@@ -20,6 +20,8 @@ namespace PowerRangeurWEB.Dialogs
         [Inject]
         public HttpClient HttpClient { get; set; }
 
+        private async Task SauverRangeur() => await BlazoredModal.CloseAsync(ModalResult.Ok(_sauverRangeur.Message));
+
         protected override async Task OnInitializedAsync()
         {
             Users = await this.HttpClient.GetFromJsonAsync<List<UserGet>>("/api/user/all");
@@ -39,7 +41,8 @@ namespace PowerRangeurWEB.Dialogs
 
         public async void Sauver ()
         {
-            await HttpClient.PatchAsJsonAsync("/api/tache/Assign/" + Tache.IdTache, Tache.Users.Select(user => user.IdUser)); 
+            await HttpClient.PatchAsJsonAsync("/api/tache/Assign/" + Tache.IdTache, Tache.Users.Select(user => user.IdUser));
+            StateHasChanged();
             await BlazoredModal?.CloseAsync(ModalResult.Ok());
           
            
@@ -48,3 +51,5 @@ namespace PowerRangeurWEB.Dialogs
 
     }
 }
+
+
