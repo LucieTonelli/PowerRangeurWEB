@@ -1,7 +1,7 @@
 ﻿@page "/CreationTache"
 
 <h3>Creation Tache</h3>
-<EditForm FormName="creaTache" @onsubmit="()=> CreerTache()" data-enhance>
+<EditForm FormName="creaTache" @* @onsubmit="()=> CreerTache()" *@ OnInvalidSubmit="CreerTache" Model="Tache" >
     <div>
         <label for="NomTache">Nom de la Tâche:</label>
         <InputText @bind-Value="Tache.NomTache" type="text" required></InputText>

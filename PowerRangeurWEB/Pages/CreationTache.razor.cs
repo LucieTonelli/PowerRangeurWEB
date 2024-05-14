@@ -13,6 +13,8 @@ namespace PowerRangeurWEB.Pages
         [Inject]
         public HttpClient HttpClient { get; set; }
 
+        [SupplyParameterFromForm]
+
         public TacheFormCreate Tache { get; set; } = new TacheFormCreate();
         private async Task CreerTache()
         {
