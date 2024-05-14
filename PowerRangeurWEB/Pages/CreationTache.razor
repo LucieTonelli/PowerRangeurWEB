@@ -1,7 +1,7 @@
 ﻿@page "/CreationTache"
 
 <h3>Creation Tache</h3>
-<form @onsubmit="()=> CreerTache()">
+<EditForm FormName="creaTache" @onsubmit="()=> CreerTache()" data-enhance>
     <div>
         <label for="NomTache">Nom de la Tâche:</label>
         <InputText @bind-Value="Tache.NomTache" type="text" required></InputText>
@@ -9,6 +9,7 @@
     <div>
         <label for="Statut">Statut:</label>
         <InputSelect @bind-Value="Tache.Statut" name="Statut">
+            <option value="">Fais Ton choix</option>
             <option value=0>En cours</option>
             <option value=1>Terminée</option>
             <option value=2>En attente</option>
@@ -40,4 +41,4 @@
         <InputNumber @bind-Value="Tache.PointBonusMalus"></InputNumber>
     </div> *@
     <button type="submit">Soumettre</button>
-</form>
+</EditForm>
