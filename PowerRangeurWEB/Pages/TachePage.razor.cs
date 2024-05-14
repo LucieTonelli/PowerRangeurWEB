@@ -30,7 +30,7 @@ namespace PowerRangeurWEB.Pages
             TachesLibres = taches.Where(t => t.Statut == Tache.Status.Libre);
             TachesEnCours = taches.Where(t => t.Statut == Tache.Status.Encours);
             TachesTerminees = taches.Where(t => t.Statut == Tache.Status.Terminee);
-            StateHasChanged();
+            // await StateHasChanged();
         }
 
 

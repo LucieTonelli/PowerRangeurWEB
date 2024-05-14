@@ -14,18 +14,31 @@
     @if (Tache.Users != null)
     {
 
+        <p>Des Rangeurs y travaillent :</p>
+
+        <ul>
         @foreach (var user in Tache.Users)
         {
-            <li>Des Rangeurs y travaillent : </li>
-                <ul>@user.Nom</ul>
+            <li>@user.PseudoUser</li>
         
         }
+        </ul>
     }
     else
     {
         <li>Aucun utilisateur n'est assigné</li>
 
     }
-    
     <button @onclick="() => Assign(Tache)">Trouver un Rangeur</button>
+@*     <button @onclick="() => ModifierTache(Tache)">Modifier la Tache</button> *@
+
+@* 
+<p>Terminer cette tache :</p>
+
+    <div class="checkbox">
+        <input type="checkbox" @bind="isTaskCompleted" />
+    </div>
+ *@
+
+  
 

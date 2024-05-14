@@ -4,7 +4,7 @@
 <h3>Nom de la tache : @Tache.NomTache</h3>
 @if(Tache.Users != null)
 {
-    @foreach(UserGet u in Users)
+    @foreach (UserGet u in Users.OrderBy(u => u.PseudoUser))
     {
         <div>
             @if(Tache.Users.Any(us => us.IdUser == u.IdUser))
@@ -16,6 +16,7 @@
                 <input type="checkbox" @onchange="() => Add(u)"></input>
             }
             @u.PseudoUser
+
         </div>
     }
 }

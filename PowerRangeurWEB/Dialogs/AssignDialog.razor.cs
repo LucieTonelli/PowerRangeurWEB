@@ -14,13 +14,13 @@ namespace PowerRangeurWEB.Dialogs
 
         [CascadingParameter] BlazoredModalInstance? BlazoredModal { get; set; } = default!;
 
+
         [Parameter]
         public TacheGet Tache { get; set; }
 
         [Inject]
         public HttpClient HttpClient { get; set; }
 
-        private async Task SauverRangeur() => await BlazoredModal.CloseAsync(ModalResult.Ok(_sauverRangeur.Message));
 
         protected override async Task OnInitializedAsync()
         {
@@ -43,10 +43,10 @@ namespace PowerRangeurWEB.Dialogs
         {
             await HttpClient.PatchAsJsonAsync("/api/tache/Assign/" + Tache.IdTache, Tache.Users.Select(user => user.IdUser));
             StateHasChanged();
-            await BlazoredModal?.CloseAsync(ModalResult.Ok());
-          
-           
+            await BlazoredModal?.CloseAsync(ModalResult.Ok(Tache));
         }
+
+
 
 
     }

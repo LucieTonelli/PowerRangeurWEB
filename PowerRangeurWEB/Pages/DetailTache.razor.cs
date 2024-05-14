@@ -1,12 +1,8 @@
 ﻿using Blazored.Modal.Services;
 using Blazored.Modal;
-using DocuSign.eSign.Model;
 using Microsoft.AspNetCore.Components;
 using PowerRangeurAPI.API.DTOs.Tache;
-using PowerRangeurAPI.API.DTOs.User;
-using PowerRangeurAPI.Domain.Models;
 using PowerRangeurWEB.Dialogs;
-using System.Net.Http;
 using System.Net.Http.Json;
 
 namespace PowerRangeurWEB.Pages
@@ -25,6 +21,8 @@ namespace PowerRangeurWEB.Pages
 
         public TacheGet Tache { get; set; } = new TacheGet();
 
+        public TacheFormComplete TachetoComplete { get; set; } = new TacheFormComplete();
+
         protected override async Task OnParametersSetAsync()
         {
             if (IdTache != null)
@@ -33,11 +31,6 @@ namespace PowerRangeurWEB.Pages
                 await InfoTache();
             }
         }
-
-        //protected override void OnParametersSet()
-        //{ 
-        
-        //}
 
 
         private async Task InfoTache()
@@ -69,13 +62,23 @@ namespace PowerRangeurWEB.Pages
             {
                 { "Tache", t }
             };
-            await ModalService.Show<AssignDialog>("Assigner des utilisateurs", parameters).Result;
-            await OnInitializedAsync();
 
+            var assignModal = await ModalService.Show<AssignDialog>("Assigner des utilisateurs", parameters).Result; ;
+            await InfoTache();
+            StateHasChanged();
         }
 
+        private bool isTaskCompleted;
 
 
-
+        protected override void OnAfterRender(bool firstRender)
+        {
+            if (isTaskCompleted)
+            {
+                // Effectuez ici les actions à exécuter lorsque la tâche est terminée
+                Console.WriteLine("La tâche est terminée !");
+            }
+        }
     }
+
 }
