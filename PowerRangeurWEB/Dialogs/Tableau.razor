@@ -1,0 +1,18 @@
+﻿@typeparam T
+
+<h3>tableau</h3>
+
+<table>
+    <thead>
+        <tr>
+        @Header
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Data)
+        {
+            <tr> @Body(item) </tr>
+        }
+
+    </tbody>
+</table>

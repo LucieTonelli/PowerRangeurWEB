@@ -1,0 +1,20 @@
+﻿@page "/tableaudeBord"
+@using PowerRangeurWEB.Dialogs
+@using PowerRangeurAPI.API.DTOs.User
+@using PowerRangeurAPI.API.DTOs.Tache
+
+<h3>TableaudeBord</h3>
+
+<Tableau T="UserReport" Data="@_userReports">
+    <Header>
+        <th>Id</th>
+        <th>Pseudo</th>
+        <th>Score</th>
+    </Header>
+    <Body>
+        <td>@context.IdUser</td>
+        <td>@context.PseudoUser</td>
+        <td>@context.Score</td>
+    </Body>
+</Tableau>
+
