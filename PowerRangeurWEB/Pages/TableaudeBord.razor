@@ -1,20 +1,37 @@
 ﻿@page "/tableaudeBord"
 @using PowerRangeurWEB.Dialogs
 @using PowerRangeurAPI.API.DTOs.User
-@using PowerRangeurAPI.API.DTOs.Tache
 
-<h3>TableaudeBord</h3>
-
+<h3>Tableau de Bord</h3>
 <Tableau T="UserReport" Data="@_userReports">
     <Header>
-        <th>Id</th>
-        <th>Pseudo</th>
-        <th>Score</th>
+    <th>Id</th>
+    <th>Pseudo</th>
+    <th>Score</th>
     </Header>
     <Body>
-        <td>@context.IdUser</td>
-        <td>@context.PseudoUser</td>
-        <td>@context.Score</td>
+    <td>@context.IdUser</td>
+    <td>@context.PseudoUser</td>
+    <td>@context.Prenom</td>
+    <td>@context.Nom</td>
+    <td>@context.Nom</td>
     </Body>
 </Tableau>
 
+@* 
+
+@if (_userReports != null)
+{
+    @foreach (var userReport in _userReports)
+    {
+        <h4>@userReport.PseudoUser</h4>
+        <h5>Tâches à faire :</h5>
+        <Tableau T="SimpleTacheGet" Data="@userReport.TachesToDo" />
+        <h5>Tâches complétées :</h5>
+        <Tableau T="SimpleTacheGet" Data="@userReport.TachesComplete" />
+    }
+}
+else
+{
+    <p>Aucun utilisateur trouvé.</p>
+} *@

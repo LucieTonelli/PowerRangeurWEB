@@ -9,7 +9,7 @@ namespace PowerRangeurWEB.Dialogs
         public RenderFragment Header { get; set; }
         [Parameter]
         public RenderFragment<T> Body { get; set; }
-
+        [Parameter]
         public List<T> Data { get; set; }
 
     }
