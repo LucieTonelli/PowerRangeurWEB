@@ -3,18 +3,19 @@
 @using PowerRangeurAPI.API.DTOs.User
 
 <h3>Tableau de Bord</h3>
-<Tableau T="UserReport" Data="@_userReports">
+<Tableau T="UserGet" Data="@_users">
     <Header>
     <th>Id</th>
     <th>Pseudo</th>
-    <th>Score</th>
+    <th>Prénom</th>
+    <th>Nom</th>
     </Header>
     <Body>
     <td>@context.IdUser</td>
     <td>@context.PseudoUser</td>
     <td>@context.Prenom</td>
     <td>@context.Nom</td>
-    <td>@context.Nom</td>
+    <button @onclick="() => DetailUser(context.IdUser)">Tous les détails</button>
     </Body>
 </Tableau>
 

@@ -1,3 +1,69 @@
 ﻿@using Microsoft.EntityFrameworkCore.Metadata.Internal
 @using PowerRangeurAPI.API.DTOs.User
 @using System.Diagnostics
+
+@page "/DetailUser/{IdUser:int}"
+@* 
+<h3>Détail User</h3>
+
+<h3>Tableau de Bord</h3>
+<Tableau T="UserReport" Data="@_userReports">
+    <Header>
+    <th>Id</th>
+    <th>Pseudo</th>
+    <th>Score</th>
+    </Header>
+    <Body>
+    <td>@context.IdUser</td>
+    <td>@context.TachesComplete</td>
+
+    </Body>
+</Tableau>
+ *@
+
+
+<h3>Détail User</h3>
+
+@if (User != null)
+{
+    <div>
+        <p>Id: @User.IdUser</p>
+        <p>Pseudo: @User.PseudoUser</p>
+        <p>Score: @User.Score</p>
+        <h4>Tâches Complètes:</h4>
+        <ul>
+            @if (User.TachesComplete != null)
+            {
+                @foreach (SimpleTacheGet tache in User.TachesComplete)
+                {
+                    <li>@tache.NomTache</li>
+                    <li>@tache.DateEcheance</li>
+                }
+            }
+            else
+            {
+                <li>Aucune tâche complète</li>
+            }
+        </ul>
+        <h4>Tâches à Faire:</h4>
+        <ul>
+            @if (User.TachesToDo != null)
+            {
+                @foreach (SimpleTacheGet tache in User.TachesToDo)
+                {
+                    <li>@tache.NomTache</li>
+                    <li>@tache.DateEcheance</li>
+                }
+            }
+            else
+            {
+                <li>Aucune tâche à faire</li>
+            }
+        </ul>
+    </div>
+}
+else
+{
+    <p>Chargement des données...</p>
+}
+

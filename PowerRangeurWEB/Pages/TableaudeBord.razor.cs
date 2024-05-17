@@ -1,9 +1,13 @@
+using Azure;
 using Blazored.Modal;
 using Blazored.Modal.Services;
 using Microsoft.AspNetCore.Components;
+using PowerRangeurAPI.API.DTOs.Tache;
 using PowerRangeurAPI.API.DTOs.User;
+using PowerRangeurAPI.Domain.Models;
 using PowerRangeurWEB.Dialogs;
 using System.Net.Http.Json;
+using ZendeskApi_v2.Requests;
 
 
 namespace PowerRangeurWEB.Pages
@@ -18,42 +22,28 @@ namespace PowerRangeurWEB.Pages
 
         [Parameter]
         public int IdUser { get; set; }
-        public UserReport? User { get; private set; }
 
-        private List<UserReport> _userReports = new List<UserReport>();
+        private List<UserGet> _users = new List<UserGet>();
 
         protected override async Task OnInitializedAsync()
         {
-
-            _userReports = new List<UserReport>
+            var users = await HttpClient.GetFromJsonAsync<List<UserGet>>("/api/user/all");
+            if (users != null)
             {
-                new UserReport { IdUser = 1, PseudoUser = "User1", Score = 100 },
-                new UserReport { IdUser = 2, PseudoUser = "User2", Score = 200 },
-                new UserReport { IdUser = 3, PseudoUser = "User3", Score = 300 }
-            };
-            //int userId = 1; // Remplacez par l'ID utilisateur renvoyer via authentification ou autre ?
-            //HttpResponseMessage response = await HttpClient.GetAsync($"/api/User/ById/{userId}");
-            //if (response.IsSuccessStatusCode)
-            //{
-            //    var data = await response.Content.ReadFromJsonAsync<UserReport>();
-            //    if (data != null)
-            //    {
-            //        _userReports.Add(data);
-            //    }
-            //}
-            //else
-            //{
-            //    Console.WriteLine("Erreur lors de la récupération des données.");
-            //}
+                _users.AddRange(users);
+            }
+            else
+            {
+                Console.WriteLine("Erreur lors de la récupération des données.");
+            }
         }
 
         private async Task RapportUser()
         {
-
             HttpResponseMessage response = await HttpClient.GetAsync($"/api/User/ById/{IdUser}");
             if (response.IsSuccessStatusCode)
             {
-                User = await response.Content.ReadFromJsonAsync<UserReport>();
+                UserReport userReport = await response.Content.ReadFromJsonAsync<UserReport>();
                 Console.WriteLine("ok");
             }
             else
@@ -62,21 +52,15 @@ namespace PowerRangeurWEB.Pages
             }
         }
 
-
-
-
-
-        public async void DetailUser(UserGet u)
+        public async Task DetailUser(int idUser)
         {
             ModalParameters parameters = new()
             {
-                { "User", u }
+        { "IdUser", idUser }
             };
 
-            var assignModal = await ModalService.Show<RapportDialog>("voir le rapport user", parameters).Result;
-            await RapportUser();
+            var assignModal = await ModalService.Show<RapportDialog>("Voir le rapport utilisateur", parameters).Result;
             StateHasChanged();
         }
-
     }
 }

@@ -19,16 +19,26 @@ namespace PowerRangeurWEB.Dialogs
     [Parameter]
     public int IdUser { get; set; }
 
-    public UserReport User {  get; set; }
+    public UserReport User {  get; set; } = new UserReport();
 
+    private List<UserReport> _userReports = new List<UserReport>();
 
-    [Inject]
+        [Inject]
     public HttpClient HttpClient { get; set; }
 
 
-    protected override async Task OnInitializedAsync()
-    {
-            HttpResponseMessage response = await HttpClient.GetAsync($"/api/User/ById/{User.IdUser}");
+
+
+        protected override async Task OnParametersSetAsync()
+        {
+            if (IdUser != null) 
+            {
+                await InfoUser();
+            }
+        }
+        private async Task InfoUser()
+        {
+            HttpResponseMessage response = await HttpClient.GetAsync($"/api/User/ById/{IdUser}");
             if (response.IsSuccessStatusCode)
             {
                 User = await response.Content.ReadFromJsonAsync<UserReport>();
@@ -38,7 +48,13 @@ namespace PowerRangeurWEB.Dialogs
             {
                 Console.WriteLine("Notok");
             }
-
         }
+
+
+
+
+
+    }
 }
-}
+
+
